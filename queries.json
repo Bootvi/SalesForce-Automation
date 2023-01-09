@@ -1,0 +1,57 @@
+{
+    "queries": [
+        {
+            "name": "Cases",
+            "soql": "SELECT Id, CaseNumber, toLabel(Current_Support_Team__c), CreatedDate, Origin, Status, Sub_Status__c, Owner.Name, Category__c, Subject, Case_Age__c, Account.AccountNumber, CreatedBy.Name, ClosedDate, PQ_Product_Group__c, Escalation__c, Priority, Community_Contact__r.Name, Asset_Line_Item__r.Name, bl_Date_Time_Development_Start__c, Tier_1_Diagnosis__c, Tier_1_Diagnosis_Date__c, Diagnosed_By__r.Name, Handled_by_Tier_2__c, Tier_2_Analysis_Done_by__r.Name, Tier_2_Analysis_Completed_Date__c, Issue_Type__c, JIRA_ID__c, SnowIncidentNumber__c, Days_Since_Staff_Last_Public_Comment__c FROM Case WHERE (CreatedDate >= 2021-01-01T00:00:00Z OR ClosedDate >= 2021-01-01T00:00:00Z OR Tier_1_Diagnosis_Date__c >= 2021-01-01 OR Tier_2_Analysis_Completed_Date__c >= 2021-01-01T00:00:00Z) AND Account.AccountNumber NOT IN ('01EXL', '972EXL') AND (toLabel(Current_Support_Team__c) IN ('NA Aleph Support Team', 'NA Alma Tier 1 Support Team', 'NA Alma Tier 2 Support Team', 'NA Leganto Support Team', 'NA Tier 1 Support Team', 'NA Primo Tier 1 Support Team', 'NA Primo Tier 2 Support Team', 'NA Projects Support Team', 'NA SFX Support Team', 'NA WFS Support Team', 'Rialto Onboarding Support Team', 'Rialto Support Team', 'Voyager Support Team') OR Owner.Name IN ('Alon Botvinik', 'Callie Mendoza', 'Dominic Doneux', 'Emily Bayma-Santos', 'Jack Boettcher', 'Linda Zaleski', 'Aileen Nolan', 'Andrea Finch', 'Beth Pfeiffer', 'Beth Campbell', 'Holly Pletka', 'Ian Lashbrook', 'Jessi Hurd', 'Joanna Wilkinson', 'Katie Cheever', 'Lauren Tomasek', 'Marlin Jayasinghe', 'Rachel Bellavia', 'Robert Sebek', 'Ross Koepp', 'Scott Erdenberg', 'Steven Burke', 'Yaala Ariel-Joel', 'Aaron Smith', 'Katherine Silva', 'Kenny Tymick', 'Ray Raddatz', 'Carlos Santos', 'Chris Dixon', 'Lori Lareau', 'Maxine Pavnica', 'Milan Kolundzija', 'Natalia Entin', 'Paul McBride', 'Susan Martin', 'Troy Gnat', 'Vlad Buldyrev', 'James Mitchell', 'Jerry Specht', 'Jonathan Williams', 'Julie Bister', 'Laura Guy', 'Tania Gutman', 'Lindsay Leonhard', 'Brett Pinkepank', 'Alexandra Nicolescu', 'Matthew Santostefano', 'Daniel Miranda', 'Kelsey Shaw') OR Diagnosed_By__r.Name IN ('Alon Botvinik', 'Callie Mendoza', 'Dominic Doneux', 'Emily Bayma-Santos', 'Jack Boettcher', 'Linda Zaleski', 'Aileen Nolan', 'Andrea Finch', 'Beth Pfeiffer', 'Beth Campbell', 'Holly Pletka', 'Ian Lashbrook', 'Jessi Hurd', 'Joanna Wilkinson', 'Katie Cheever', 'Lauren Tomasek', 'Marlin Jayasinghe', 'Rachel Bellavia', 'Robert Sebek', 'Ross Koepp', 'Scott Erdenberg', 'Steven Burke', 'Yaala Ariel-Joel', 'Aaron Smith', 'Katherine Silva', 'Kenny Tymick', 'Ray Raddatz', 'Carlos Santos', 'Chris Dixon', 'Lori Lareau', 'Maxine Pavnica', 'Milan Kolundzija', 'Natalia Entin', 'Paul McBride', 'Susan Martin', 'Troy Gnat', 'Vlad Buldyrev', 'James Mitchell', 'Jerry Specht', 'Jonathan Williams', 'Julie Bister', 'Laura Guy', 'Tania Gutman', 'Lindsay Leonhard', 'Brett Pinkepank', 'Alexandra Nicolescu', 'Matthew Santostefano', 'Daniel Miranda', 'Kelsey Shaw') OR Tier_2_Analysis_Done_by__r.Name IN ('Alon Botvinik', 'Callie Mendoza', 'Dominic Doneux', 'Emily Bayma-Santos', 'Jack Boettcher', 'Linda Zaleski', 'Aileen Nolan', 'Andrea Finch', 'Beth Pfeiffer', 'Beth Campbell', 'Holly Pletka', 'Ian Lashbrook', 'Jessi Hurd', 'Joanna Wilkinson', 'Katie Cheever', 'Lauren Tomasek', 'Marlin Jayasinghe', 'Rachel Bellavia', 'Robert Sebek', 'Ross Koepp', 'Scott Erdenberg', 'Steven Burke', 'Yaala Ariel-Joel', 'Aaron Smith', 'Katherine Silva', 'Kenny Tymick', 'Ray Raddatz', 'Carlos Santos', 'Chris Dixon', 'Lori Lareau', 'Maxine Pavnica', 'Milan Kolundzija', 'Natalia Entin', 'Paul McBride', 'Susan Martin', 'Troy Gnat', 'Vlad Buldyrev', 'James Mitchell', 'Jerry Specht', 'Jonathan Williams', 'Julie Bister', 'Laura Guy', 'Tania Gutman', 'Lindsay Leonhard', 'Brett Pinkepank', 'Alexandra Nicolescu', 'Alexandra Danila', 'Matthew Santostefano', 'Daniel Miranda', 'Kelsey Shaw'))",
+            "column_mappings": {
+                "CaseNumber": "Case Number",
+                "Current_Support_Team__c": "Current Support Team",
+                "CreatedDate": "Date Time Opened",
+                "Origin": "Case Origin",
+                "Status": "Status",
+                "Sub_Status__c": "Sub-Status",
+                "Owner.Name": "Owner Name",
+                "Category__c": "Category",
+                "Subject": "Subject",
+                "Case_Age__c": "Case Age",
+                "Account.AccountNumber": "Account Number",
+                "CreatedBy.Name": "Created By",
+                "ClosedDate": "Date Time Closed",
+                "PQ_Product_Group__c": "Product",
+                "Escalation__c": "Escalation",
+                "Priority": "Priority",
+                "Community_Contact__r.Name": "Community Contact",
+                "Asset_Line_Item__r.Name": "Asset Name",
+                "bl_Date_Time_Development_Start__c": "Date Time Development Start",
+                "Tier_1_Diagnosis__c": "Tier 1 Diagnosis",
+                "Tier_1_Diagnosis_Date__c": "Tier 1 Diagnosis Date",
+                "Diagnosed_By__r.Name": "Tier 1 Diagnosed By",
+                "Handled_by_Tier_2__c": "Handled by Tier 2",
+                "Tier_2_Analysis_Done_by__r.Name": "Tier 2 Analysis Done by",
+                "Tier_2_Analysis_Completed_Date__c": "Tier 2 Analysis Completed Date",
+                "Issue_Type__c": "Case Type",
+                "JIRA_ID__c": "JIRA ID",
+                "SnowIncidentNumber__c": "SNOW Incident Number",
+                "Days_Since_Staff_Last_Public_Comment__c": "OBS_Days Since Last Public Comment"
+            }
+        },
+        {
+            "name": "Surveys",
+            "soql": "SELECT Id, Case_Number__r.CaseNumber, Case_Number__r.ClosedDate, Case_Number__r.Origin, Contact_Name__r.Name, Case_Number__r.Product_Service_Name__c, Case_Number__r.Account.AccountNumber, Case_Number__r.Owner.Name, Comments__c, Experience_Rating__c, CreatedDate, toLabel(Case_Number__r.Current_Support_Team__c),  Case_Number__r.CreatedBy.Name FROM ReportCard__c WHERE CreatedDate >= 2021-01-01T00:00:00Z AND (toLabel(Case_Number__r.Current_Support_Team__c) IN ('NA Aleph Support Team', 'NA Alma Tier 1 Support Team', 'NA Alma Tier 2 Support Team', 'NA Leganto Support Team', 'NA Tier 1 Support Team', 'NA Primo Tier 1 Support Team', 'NA Primo Tier 2 Support Team', 'NA Projects Support Team', 'NA SFX Support Team', 'NA WFS Support Team', 'Rialto Onboarding Support Team', 'Rialto Support Team', 'Voyager Support Team') OR Case_Number__r.Owner.Name IN ('Alon Botvinik', 'Callie Mendoza', 'Dominic Doneux', 'Emily Bayma-Santos', 'Jack Boettcher', 'Linda Zaleski', 'Aileen Nolan', 'Andrea Finch', 'Beth Pfeiffer', 'Beth Campbell', 'Holly Pletka', 'Ian Lashbrook', 'Jessi Hurd', 'Joanna Wilkinson', 'Katie Cheever', 'Lauren Tomasek', 'Marlin Jayasinghe', 'Rachel Bellavia', 'Robert Sebek', 'Ross Koepp', 'Scott Erdenberg', 'Steven Burke', 'Yaala Ariel-Joel', 'Aaron Smith', 'Katherine Silva', 'Kenny Tymick', 'Ray Raddatz', 'Carlos Santos', 'Chris Dixon', 'Lori Lareau', 'Maxine Pavnica', 'Milan Kolundzija', 'Natalia Entin', 'Paul McBride', 'Susan Martin', 'Troy Gnat', 'Vlad Buldyrev', 'James Mitchell', 'Jerry Specht', 'Jonathan Williams', 'Julie Bister', 'Laura Guy', 'Tania Gutman', 'Lindsay Leonhard', 'Brett Pinkepank', 'Alexandra Nicolescu', 'Alexandra Danila', 'Matthew Santostefano', 'Daniel Miranda', 'Kelsey Shaw'))",
+            "column_mappings": {
+                "Case_Number__r.CaseNumber": "Case Number",
+                "Case_Number__r.ClosedDate": "Case Closed Date",
+                "Case_Number__r.Origin": "Case Origin",
+                "Contact_Name__r.Name": "Contact Name",
+                "Case_Number__r.Product_Service_Name__c": "Product",
+                "Case_Number__r.Account.AccountNumber": "Account Number",
+                "Case_Number__r.Owner.Name": "Case Owner",
+                "Comments__c": "Survey Comments",
+                "Experience_Rating__c": "Satisfaction Rating",
+                "CreatedDate": "Survey Completed Date",
+                "Case_Number__r.Current_Support_Team__c": "Current Support Team",
+                "Case_Number__r.CreatedBy.Name": "Case Created By"
+            }
+        }
+    ]
+}

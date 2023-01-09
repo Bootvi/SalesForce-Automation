@@ -1,0 +1,5 @@
+.env
+venv/
+token.json
+*.db
+Old version/

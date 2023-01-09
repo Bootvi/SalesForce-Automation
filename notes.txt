@@ -1,0 +1,31 @@
+SOQL equivalent of Linda's report:
+SELECT Name, Krow__Region__r.Name, Krow__Account__r.Name, Krow__Project_End_Date__c, Krow__Resource_Manager__r.Name, ProjectProducts__c, Krow__Note__c, Krow__Project_Status__c, Krow__Completion_Date__c FROM Krow__Project__c WHERE Krow__Resource_Manager__r.Name = 'Linda Zaleski' AND Krow__Project_Status__c != '' AND Service_Region__c = 'NA'
+
+or
+
+SELECT Name, Krow__Region__c, Krow__Account__c, Krow__Project_End_Date__c, Krow__Resource_Manager__c, ProjectProducts__c, Krow__Note__c, Krow__Project_Status__c, Krow__Completion_Date__c FROM Krow__Project__c WHERE Krow__Resource_Manager__c = 'aDA3r000000H3mjGAC' AND Krow__Project_Status__c != '' AND Service_Region__c = 'NA'
+
+Queries from Alon's report:
+
+SELECT Id, CaseNumber, toLabel(Current_Support_Team__c), CreatedDate, Origin, Status, Sub_Status__c, Owner.Name, Category__c, Subject, Case_Age__c, Account.AccountNumber, CreatedBy.Name, ClosedDate, PQ_Product_Group__c, Escalation__c, Priority, Community_Contact__r.Name, Asset_Line_Item__r.Name, bl_Date_Time_Development_Start__c
+FROM Case 
+WHERE (CreatedDate >= 2021-01-01T00:00:00Z OR ClosedDate >= 2021-01-01T00:00:00Z)
+AND Account.AccountNumber NOT IN ('01EXL', '972EXL')
+AND (toLabel(Current_Support_Team__c) IN ('NA Aleph Support Team', 'NA Alma Tier 1 Support Team', 'NA Alma Tier 2 Support Team', 'NA Leganto Support Team', 'NA Primo Tier 1 Support Team', 'NA Primo Tier 2 Support Team', 'NA Projects Support Team', 'NA SFX Support Team', 'NA WFS Support Team', 'Rialto Onboarding Support Team', 'Rialto Support Team', 'Voyager Support Team')
+	OR Owner.Name IN ('Alon Botvinik', 'Callie Mendoza', 'Dominic Doneux', 'Emily Bayma-Santos', 'Jack Boettcher', 'Linda Zaleski', 'Aileen Nolan', 'Andrea Finch', 'Beth Pfeiffer', 'Holly Pletka', 'Ian Lashbrook', 'Joanna Wilkinson', 'Katie Cheever', 'Lauren Tomasek', 'Marlin Jayasinghe', 'Rachel Bellavia', 'Robert Sebek', 'Ross Koepp', 'Scott Erdenberg', 'Steven Burke', 'Yaala Ariel-Joel', 'Aaron Smith', 'Katherine Silva', 'Kenny Tymick', 'Ray Raddatz', 'Carlos Santos', 'Chris Dixon', 'Lori Lareau', 'Maxine Pavnica', 'Milan Kolundzija', 'Natalia Entin', 'Paul McBride', 'Susan Martin', 'Troy Gnat', 'Vlad Buldyrev', 'James Mitchell', 'Jerry Specht', 'Jonathan Williams', 'Julie Bister', 'Laura Guy', 'Tania Gutman', 'Lindsay Leonhard', 'Brett Pinkepank', 'Alexandra Nicolescu', 'Matthew Santostefano'))
+
+
+SELECT Id, Case_Number__r.CaseNumber, Case_Number__r.ClosedDate, Case_Number__r.Origin, Contact_Name__r.Name, Case_Number__r.Product_Service_Name__c, Case_Number__r.Account.AccountNumber, Case_Number__r.Owner.Name, Comments__c, Experience_Rating__c, CreatedDate, toLabel(Case_Number__r.Current_Support_Team__c),  Case_Number__r.CreatedBy.Name FROM ReportCard__c WHERE CreatedDate >= 2021-01-01T00:00:00Z AND Case_Number__r.Owner.Name IN ('Alon Botvinik', 'Callie Mendoza', 'Dominic Doneux', 'Emily Bayma-Santos', 'Jack Boettcher', 'Linda Zaleski', 'Aileen Nolan', 'Andrea Finch', 'Beth Pfeiffer', 'Holly Pletka', 'Ian Lashbrook', 'Joanna Wilkinson', 'Katie Cheever', 'Lauren Tomasek', 'Marlin Jayasinghe', 'Rachel Bellavia', 'Robert Sebek', 'Ross Koepp', 'Scott Erdenberg', 'Steven Burke', 'Yaala Ariel-Joel', 'Aaron Smith', 'Katherine Silva', 'Kenny Tymick', 'Ray Raddatz', 'Carlos Santos', 'Chris Dixon', 'Lori Lareau', 'Maxine Pavnica', 'Milan Kolundzija', 'Natalia Entin', 'Paul McBride', 'Susan Martin', 'Troy Gnat', 'Vlad Buldyrev', 'James Mitchell', 'Jerry Specht', 'Jonathan Williams', 'Julie Bister', 'Laura Guy', 'Tania Gutman', 'Lindsay Leonhard', 'Brett Pinkepank', 'Alexandra Nicolescu', 'Matthew Santostefano')
+
+
+
+
+How to replace user names for Tier 1/2 fields in Power Query:
+
+let
+    Source = Csv.Document(File.Contents("C:\Users\DDoneux\Downloads\kpi_automation_project\Cases.csv"),[Delimiter=",", Columns=26, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+    #"Replace Tier 1 Names" = Table.ReplaceValue(#"Promoted Headers", each [Tier 1 Diagnosed By], each List.Accumulate( List.Buffer( Table.ToRecords( #"Support User Mapping" ) ), [Tier 1 Diagnosed By], ( valueToReplace, replaceOldNewRecord ) => Text.Replace( valueToReplace, replaceOldNewRecord[Id], replaceOldNewRecord[Analyst Name] ) ), Replacer.ReplaceText, {"Tier 1 Diagnosed By"}),
+     #"Replace Tier 2 Names" = Table.ReplaceValue(#"Replace Tier 1 Names", each [Tier 2 Analysis Done by], each List.Accumulate( List.Buffer( Table.ToRecords( #"Support User Mapping" ) ), [Tier 2 Analysis Done by], ( valueToReplace, replaceOldNewRecord ) =>  Text.Replace( valueToReplace, replaceOldNewRecord[Id], replaceOldNewRecord[Analyst Name] ) ), Replacer.ReplaceText, {"Tier 1 Diagnosed By"} )
+in
+    #"Replace Tier 2 Names"
